@@ -43,5 +43,4 @@ public class Produto extends PanacheEntity {
     public void setStatus(String status) {
         this.status = status;
     }
-
 }

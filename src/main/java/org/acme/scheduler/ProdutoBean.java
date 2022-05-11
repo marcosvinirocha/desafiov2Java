@@ -1,10 +1,10 @@
 package org.acme.scheduler;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import org.acme.Enum.Status;
 import org.acme.model.Produto;
@@ -19,22 +19,24 @@ public class ProdutoBean {
     @Inject
     private ProdutoService produtoService;
 
-    @Scheduled(every = "20s")
+    @Scheduled(every = "120s")
+    @Transactional
     void updateProduto() {
-        List<Produto> produtos = produtoService.listar();
+        List<Produto> produtos = produtoService.listarStatus();
 
         produtos.forEach(produto -> {
             Produto produto2 = new Produto();
             if (produto.getStatus().equals(Status.AGUARDANDO.toString())) {
-                // produto2.setNome(produto.getNome());
-                // produto2.setDescricao(produto.getDescricao());
-                // produto2.setPreco(produto.getPreco());
-                // produto2.setStatus(Status.APROVADO.toString());
-                // produtoService.salvarStatus(produto2);
-                Log.info("Produto " + produto.getNome() + " foi aprovado");
+                produto2.setNome(produto.getNome());
+                produto2.setDescricao(produto.getDescricao());
+                produto2.setPreco(produto.getPreco());
+                produto2.setStatus(Status.APROVADO.toString());
+                produtoService.salvarStatus(produto2);
+                produtoService.deletar();
+                Log.info("Produto " + produto.getNome());
                 Log.info("Status " + produto.getStatus());
             } else {
-                Log.info("Produto não está aguardando");
+                Log.info("Todos os produtos foram aprovados");
             }
         });
 

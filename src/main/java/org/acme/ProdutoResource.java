@@ -3,6 +3,7 @@ package org.acme;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -25,8 +26,20 @@ public class ProdutoResource {
         return produtoService.listar();
     }
 
+    @GET
+    @Path("/status")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Produto> listarStatus() {
+        return produtoService.listarStatus();
+    }
+
     @POST
     public void novoProduto(ProdutoDTO produtoDto) {
         produtoService.salvar(produtoDto);
+    }
+
+    @DELETE
+    public void deletar() {
+        produtoService.deletar();
     }
 }
