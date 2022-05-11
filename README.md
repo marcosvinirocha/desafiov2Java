@@ -4,7 +4,7 @@ Esse projeto foi desenvolvido em Java usando Quarkus , Hibernate e Postgress
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
-> Certifique se o docker se está instalado e pousuir um container com postgres ou o mesmo instalado na maquina.
+> Certifique se o docker se está instalado e pousuir um container com postgres ou o mesmo instalado na maquina. Modifique o arquivo aplication.properties para funcionar o postgres devidamente correto , se n
 
 ## Running the application in dev mode
 
